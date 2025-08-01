@@ -6,11 +6,6 @@ import { TypingBanner } from '@/components/TypingBanner';
 import Workflow from '@/components/Workflow';
 import Modular from '@/components/Modular';
 import { useInView } from '@/components/useInView';
-import PatientSection from "@/components/Patient";
-import MedManager from '@/components/MedManager';
-import MedManagerActions, { ALL_ACTIONS } from '@/components/MedManagerActions';
-import PatientChatMorphRow from '@/components/PatientChat';
-import { Experience } from '@/components/Experience';
 
 const navLinkStyle: React.CSSProperties = {
   fontSize: "18px",
@@ -24,28 +19,13 @@ const navLinkStyle: React.CSSProperties = {
   cursor: "pointer",
 };
 
+// Set scroll restoration once (very top, outside the component)
 if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
 }
 
-function Divider() {
-  return (
-    <div
-      style={{
-        width: '100%',
-        maxWidth: 1100,
-        height: 0,
-        borderTop: '1px solid #00000014',
-        margin: '0 auto',
-        borderRadius: 2,
-        boxShadow: '0 4px 16px -6px #2222',
-        background: 'none',
-      }}
-    />
-  );
-}
-
 export default function Page() {
+  // Always load at the #home anchor on refresh
   useEffect(() => {
     if (window.location.hash !== "#home") {
       window.location.hash = "#home";
@@ -71,6 +51,7 @@ export default function Page() {
   const [beltPaused, setBeltPaused] = useState(true);
   const delayTimeout = useRef<NodeJS.Timeout | null>(null);
 
+  // Delayed unpause logic for Workflow
   useEffect(() => {
     if (workflowInView) {
       setBeltPaused(true);
@@ -91,6 +72,7 @@ export default function Page() {
     setLoaded(true);
   }, []);
 
+  // Clicking the square scrolls to the #home anchor at the very top
   const handleSquareClick = () => {
     window.location.hash = "#home";
     const home = document.getElementById('home');
@@ -101,7 +83,26 @@ export default function Page() {
     }
   };
 
+  // Manual pause toggle (status dot)
   const handleBeltPauseToggle = () => setBeltPaused((prev) => !prev);
+
+  // Divider line component
+  function Divider() {
+    return (
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 1100,
+          height: 0,
+          borderTop: '1px solid #00000014',
+          margin: '110px auto 120px auto',
+          borderRadius: 2,
+          boxShadow: '0 4px 16px -6px #2222',
+          background: 'none',
+        }}
+      />
+    );
+  }
 
   return (
     <main style={{ minHeight: '200vh', background: '#fff', position: 'relative' }}>
@@ -140,6 +141,7 @@ export default function Page() {
             transition: 'opacity 4s cubic-bezier(.4,0,.2,1)',
           }}
         >
+          {/* Logo and Title Row */}
           <div
             style={{
               display: 'flex',
@@ -179,6 +181,7 @@ export default function Page() {
               FRAMEWORx
             </h1>
           </div>
+          {/* Navigation */}
           <nav
             style={{
               display: 'flex',
@@ -195,20 +198,19 @@ export default function Page() {
       </header>
 
       {/* Spacer below header */}
-      <div style={{ height: 110 }} />
+      <div style={{ height: 100 }} />
 
       {/* BANNER SECTION */}
       <section
         id="banner"
         style={{
           scrollMarginTop: 220,
-          paddingTop: 80,
-          paddingBottom: 80,
-          minHeight: 360,
+          minHeight: 720,
           width: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          marginBottom: 80,
         }}
       >
         <div
@@ -220,6 +222,7 @@ export default function Page() {
             flexDirection: 'column',
             alignItems: 'center',
             minHeight: 180,
+            padding: '0 0px',
             boxSizing: 'border-box',
           }}
         >
@@ -227,20 +230,16 @@ export default function Page() {
         </div>
       </section>
 
-      <Divider />
-
       {/* MODULAR PAGE */}
       <section
         id="reimagine"
         ref={modRef}
         style={{
-          scrollMarginTop: 220,
-          paddingTop: 80,
-          paddingBottom: 80,
+          scrollMarginTop: 280,
           minHeight: 800,
           width: '100%',
           maxWidth: 1200,
-          margin: '0 auto',
+          margin: 'auto',
           position: 'relative',
           display: 'flex',
           justifyContent: 'center',
@@ -269,138 +268,123 @@ export default function Page() {
         </div>
       </section>
 
+      {/* DIVIDER LINE */}
       <Divider />
 
-      {/* WORKFLOW/PHARMACY PAGE */}
-      <section
-        id="pharmacy"
-        ref={workflowRef}
-        style={{
-          scrollMarginTop: 220,
-          paddingTop: 80,
-          paddingBottom: 80,
-          minHeight: 900,
-          width: '100%',
-          maxWidth: 1200,
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: '100%',
-            maxWidth: 900,
-            minHeight: 180,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 42,
-            position: 'relative',
-          }}
-        >
-          <AnimatePresence>
-            <motion.div
-              style={{
-                width: '100%',
-                maxWidth: 900,
-                minHeight: 180,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 80,
-                position: 'relative',
-              }}
-              initial={{ opacity: 0, y: 80 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] },
-              }}
-              exit={{ opacity: 0, y: 80, transition: { duration: 0.4 } }}
-            >
-              <Workflow
-                paused={beltPaused}
-                onTogglePause={handleBeltPauseToggle}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </section>
-
-      <Divider />
-
-      {/* PATIENT PAGE */}
-      <section
-        id="patient"
-        style={{
-          scrollMarginTop: 200,
-          paddingTop: 80,
-          paddingBottom: 80,
-          minHeight: 800,
-          width: "100%",
-          maxWidth: 1200,
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 900,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 32,
-          }}
-        >
-          <PatientSection />
-          <MedManager />
-          <MedManagerActions actions={ALL_ACTIONS} size={50} borderRadius={6} />
-          <PatientChatMorphRow />
-        </div>
-      </section>
-
-
-      <Divider />
-
-{/* EXPERIENCE PAGE (cleaned up) */}
+{/* WORKFLOW/PHARMACY PAGE */}
 <section
-  id="experience"
+  id="pharmacy"
+  ref={workflowRef}
   style={{
-    scrollMarginTop: 220,
-    paddingTop: 0,
-    paddingBottom: 0,
-    minHeight: 700,
+    scrollMarginTop: 200,
+    minHeight: 900,
     width: '100%',
-    maxWidth: 1200,
-    margin: '0 auto',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 200,
+    marginTop: -150,
   }}
 >
   <div
     style={{
-      fontWeight: 700,
-      fontSize: 38,
-      marginTop: 0,            // adjust as needed
-      marginBottom: 44,        // spacing between title & typing card
-      color: "#333",
-      textAlign: "center",
-      maxWidth: 1050,
-      fontFamily: "system-ui, sans-serif",
+      width: 900,
+      minHeight: 180,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 42, // changed from 80 to 42 for less space between text and automation
+      pointerEvents: 'auto',
+      position: 'relative',
     }}
   >
-    A SYSTEM THAT CARES ABOUT YOUR HEALTH.
-  </div>
-  <Experience />
-</section>
 
+
+    <AnimatePresence>
+      <motion.div
+        style={{
+          width: 900,
+          minHeight: 180,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 80,
+          pointerEvents: 'auto',
+          position: 'relative',
+        }}
+        initial={{ opacity: 0, y: 80 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] },
+        }}
+        exit={{ opacity: 0, y: 80, transition: { duration: 0.4 } }}
+      >
+        <Workflow
+          paused={beltPaused}
+          onTogglePause={handleBeltPauseToggle}
+        />
+      </motion.div>
+    </AnimatePresence>
+  </div>
+</section>
+      {/* DIVIDER LINE */}
+      <Divider />
+
+      {/* PATIENT PAGE (Placeholder) */}
+      <section
+        id="patient"
+        style={{
+          minHeight: 700,
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 200,
+          marginTop: 80,
+        }}
+      >
+        <div style={{
+          fontSize: 54,
+          color: "#bbb",
+          fontWeight: 600,
+          letterSpacing: "-2px",
+          textAlign: "center",
+          opacity: 0.7,
+          userSelect: "none",
+        }}>
+          Patient Section<br />[Coming Soon]
+        </div>
+      </section>
+
+      {/* DIVIDER LINE */}
+      <Divider />
+
+      {/* EXPERIENCE PAGE (Placeholder) */}
+      <section
+        id="experience"
+        style={{
+          minHeight: 700,
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 220,
+          marginTop: 80,
+        }}
+      >
+        <div style={{
+          fontSize: 54,
+          color: "#bbb",
+          fontWeight: 600,
+          letterSpacing: "-2px",
+          textAlign: "center",
+          opacity: 0.7,
+          userSelect: "none",
+        }}>
+          Experience<br />[Coming Soon]
+        </div>
+      </section>
     </main>
   );
 }

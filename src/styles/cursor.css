@@ -1,0 +1,23 @@
+/* styles/cursor.css */
+.cursorStyle {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: rgba(30,30,30,0.96);
+  border: 5px solid rgba(30,30,30,0.96);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: width 0.05s cubic-bezier(.6,.6,0,1),
+              height 0.05s cubic-bezier(.6,.6,0,1),
+              background 0.05s,
+              border-radius 0.05s;
+  will-change: width, height, background, border-radius, transform;
+}
+
+.cursorOutline {
+  background: transparent !important;
+}
