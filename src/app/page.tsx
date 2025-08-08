@@ -9,7 +9,6 @@ import { useInView } from '@/components/useInView';
 import PatientSection from "@/components/Patient";
 import MedManager from '@/components/MedManager';
 import MedManagerActions, { ALL_ACTIONS } from '@/components/MedManagerActions';
-import PatientChatMorphRow from '@/components/PatientChat';
 import { Experience } from '@/components/Experience';
 
 const navLinkStyle: React.CSSProperties = {
@@ -137,7 +136,7 @@ export default function Page() {
             minWidth: 1200,
             zIndex: 1000,
             opacity: loaded ? 1 : 0,
-            transition: 'opacity 4s cubic-bezier(.4,0,.2,1)',
+            transition: 'opacity 1s cubic-bezier(.4,0,.2,1)',
           }}
         >
           <div
@@ -186,9 +185,9 @@ export default function Page() {
               justifyContent: 'center',
             }}
           >
-            <a href="#reimagine" style={navLinkStyle}>REIMAGINE</a>
-            <a href="#pharmacy" style={navLinkStyle}>THE PHARMACY</a>
-            <a href="#patient" style={navLinkStyle}>THE PATIENT</a>
+            <a href="#reimagine" style={navLinkStyle}>DESIGN</a>
+            <a href="#pharmacy" style={navLinkStyle}>PHARMACY</a>
+            <a href="#patient" style={navLinkStyle}>PATIENT</a>
             <a href="#experience" style={navLinkStyle}>EXPERIENCE</a>
           </nav>
         </div>
@@ -245,6 +244,8 @@ export default function Page() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          background: '#00000010',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
         }}
       >
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'relative', minHeight: 800 }}>
@@ -286,6 +287,8 @@ export default function Page() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          background: '#00000020',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.49)',
         }}
       >
         <div
@@ -345,6 +348,9 @@ export default function Page() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          background: '#00000010',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+
         }}
       >
         <div
@@ -360,46 +366,47 @@ export default function Page() {
           <PatientSection />
           <MedManager />
           <MedManagerActions actions={ALL_ACTIONS} size={50} borderRadius={6} />
-          <PatientChatMorphRow />
         </div>
       </section>
 
 
       <Divider />
 
-{/* EXPERIENCE PAGE (cleaned up) */}
-<section
-  id="experience"
-  style={{
-    scrollMarginTop: 220,
-    paddingTop: 0,
-    paddingBottom: 0,
-    minHeight: 700,
-    width: '100%',
-    maxWidth: 1200,
-    margin: '0 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }}
->
-  <div
-    style={{
-      fontWeight: 700,
-      fontSize: 38,
-      marginTop: 0,            // adjust as needed
-      marginBottom: 44,        // spacing between title & typing card
-      color: "#333",
-      textAlign: "center",
-      maxWidth: 1050,
-      fontFamily: "system-ui, sans-serif",
-    }}
-  >
-    A SYSTEM THAT CARES ABOUT YOUR HEALTH.
-  </div>
-  <Experience />
-</section>
+      {/* EXPERIENCE PAGE (cleaned up) */}
+      <section
+        id="experience"
+        style={{
+          scrollMarginTop: 220,
+          paddingTop: 0,
+          paddingBottom: 0,
+          minHeight: 700,
+          width: '100%',
+          maxWidth: 1200,
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          // background: '#615252cd',
+
+        }}
+      >
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: 38,
+            marginTop: 0,            // adjust as needed
+            marginBottom: 44,        // spacing between title & typing card
+            color: "#333",
+            textAlign: "center",
+            maxWidth: 1050,
+            fontFamily: "system-ui, sans-serif",
+          }}
+        >
+          A SYSTEM THAT CARES ABOUT YOUR HEALTH.
+        </div>
+        <Experience />
+      </section>
 
     </main>
   );

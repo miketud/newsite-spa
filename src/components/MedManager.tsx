@@ -80,17 +80,18 @@ export function MedManager() {
       {/* Title above the frames */}
       <div
         style={{
-          fontSize: 26,
-          fontWeight: 500,
+          fontSize: 24,
+          fontWeight: 600,
           color: "#333",
           marginBottom: 12,
           textAlign: "center",
           userSelect: "none",
           maxWidth: OUTER_W,
           lineHeight: 1.4,
+          fontStyle: 'italic',
         }}
       >
-        Medication Management Reimagined
+        A SIMPLE MED MANAGER WITH POWERFUL FEATURES
       </div>
             <div
         style={{
@@ -104,9 +105,7 @@ export function MedManager() {
           lineHeight: 1.4,
         }}
       >
-        A patient experience that maintains function AND form.
-        <br/>
-        The patient portal gives you clear visibility of your healthcare needs, and even your wants. 
+        Take control of your health.
       </div>
 
       <div

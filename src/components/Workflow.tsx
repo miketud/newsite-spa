@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Transmission from './Transmission';
 
 const MAX_BOXES = 8;
 const BOX_SIZE = 35;
@@ -72,18 +71,18 @@ export default function Workflow({
 
   return (
     <>
-          <div
+      <div
         style={{
-            fontWeight: 700,
-            fontSize: 30,
-            marginTop: 0,
-            marginBottom: 0,
-            color: "#333",
-            textAlign: "center",
-            maxWidth: 1050,
+          fontWeight: 700,
+          fontSize: 40,
+          marginTop: 0,
+          marginBottom: 0,
+          color: "#333",
+          textAlign: "center",
+          maxWidth: 1050,
         }}
       >
-        AN INNOVATIVE DIGITAL PHARMACY EXPERIENCE  
+        THE PHARMACY WORKFLOW REIMAGINED
       </div>
       <div style={{
         maxWidth: 1200,
@@ -116,7 +115,7 @@ export default function Workflow({
           }}
         >
           <span>
-            SCRIPTERx : Automate the Boring Stuff.
+            Streamline the intake process.
           </span>
         </div>
         <div
@@ -126,21 +125,18 @@ export default function Workflow({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 20,
+            fontSize: 24,
             color: '#555',
             textAlign: 'center',
-            fontWeight: 400,
+            fontWeight: 500,
             letterSpacing: 0.01,
           }}
         >
-          A powerful operations engine that automates only what it needs to, allowing you to prioritize the healthcare part.
+          A powerful operations engine translates and converts electronic communication (ex. an eRx, a patient message).
           <br/>
+          Review messages all in one place, then easily connect them to other components.
           <br/>
-          Translate, repackage, and deliver digitally across the FRAMEWORx ecosystem.
-          <br/>
-          <br/>
-          Designed for intuitive hand-offs and real-time visibility.
-
+          
         </div>
 
         {/* SECTION 2: Pause + Conveyor Row, both centered in main container */}
@@ -250,7 +246,7 @@ export default function Workflow({
           width: '100%',
           minHeight: 300,
           margin: '0 auto',
-          marginBottom: 28,
+          marginBottom: 0,
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'center',
@@ -340,27 +336,26 @@ export default function Workflow({
               >
                 Transmitting... ... ... saved!
               </motion.div>
+              
             )}
           </AnimatePresence>
+          
         </div>
       </div>
-
-      {/* ---- OUTSIDE THE MAIN CARD: Invisible Step Space ---- */}
-      <div
-        style={{
-          width: '100%',
-          minHeight: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          background: 'transparent',
-          position: 'relative',
-          margin: '0 auto',
-        }}
-      >
-        <Transmission />
-
-      </div>
-
+{/* Filler text below automation belt/frames */}
+<div
+  style={{
+    width: '100%',
+    margin: '22px auto 0 auto',
+    textAlign: 'center',
+    color: '#555',
+    fontSize: 30,
+    fontWeight: 700,
+    letterSpacing: 0.1,
+  }}
+>
+DATABASE INTEGRATION with RxNorm, SNOMED-CT, UMLS
+</div>
     </>
   );
 }

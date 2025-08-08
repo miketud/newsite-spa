@@ -197,27 +197,53 @@ export function PatientSection() {
     >
       <div
         style={{
-          fontSize: 30,
+          fontSize: 40,
           fontWeight: 700,
           marginBottom: 8,
           color: "#333",
         }}
       >
-        COLLABORATIVE PRACTICE—WITH THE PATIENT!
+        AN INTUITIVE PATIENT PORTAL 
       </div>
       <div
         style={{
-          fontSize: 20,
-          fontWeight: 400,
+          fontSize: 30,
+          fontWeight: 600,
           color: "#555",
           marginBottom: 30,
           letterSpacing: 0.1,
-          textShadow: "0 1px 1px #f6faff, 0 0.5px 1.5px #dbe0ee",
         }}
       >
-        Enabling patients to manage their health confidently with streamlined, effective communication.
+        Introducing collaborative practice -- with the patient!
+        <br/>
       </div>
-
+      <div
+        style={{
+          fontSize: 24,
+          fontWeight: 600,
+          color: "#333",
+          marginBottom: 12,
+          textAlign: "center",
+          userSelect: "none",
+          lineHeight: 1.4,
+          fontStyle: 'italic',
+        }}
+      >
+        A CLEANER PATIENT PROFILE
+      </div>
+            <div
+        style={{
+          fontSize: 20,
+          fontWeight: 400,
+          color: "#333",
+          marginBottom: 12,
+          textAlign: "center",
+          userSelect: "none",
+          lineHeight: 1.4,
+        }}
+      >
+        Keep your information updated so the pharmacy, and your medication, never gets lost.
+      </div>
       <div
         style={{
           width: FRAME_W,

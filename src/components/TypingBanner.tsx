@@ -54,6 +54,7 @@ export function TypingBanner() {
         overflow: 'hidden',
         position: 'relative',
         margin: '0 auto',
+        marginTop: -60,
       }}
     >
       <span
