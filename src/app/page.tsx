@@ -403,9 +403,9 @@ export default function Page() {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          A SYSTEM THAT CARES ABOUT YOUR HEALTH.
+          A SYSTEM THAT SIMPLY WORx.
         </div>
-        <Experience />
+
       </section>
 
     </main>

@@ -1,12 +1,16 @@
 'use client';
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import NcpdpImg from '@/assets/ncpdp.png';
+import Hl7FhirImg from '@/assets/HL7_FHIR.png';
+import { AiOutlineDatabase } from 'react-icons/ai';
+import Automation from './Automation';
 
 type ModularSectionProps = {
   show: boolean;
 };
 
-const easeOut = cubicBezier(0.42, 0, 0.58, 1); // Robust curve
+const easeOut = cubicBezier(0.42, 0, 0.58, 1);
 
 export default function Modular({ show }: ModularSectionProps) {
   const [visible, setVisible] = useState(false);
@@ -15,7 +19,7 @@ export default function Modular({ show }: ModularSectionProps) {
     setVisible(show);
   }, [show]);
 
-  const rectStyle = {
+  const rectStyle: React.CSSProperties = {
     backgroundColor: '#fff',
     border: '4px solid #333',
     borderRadius: 8,
@@ -23,10 +27,10 @@ export default function Modular({ show }: ModularSectionProps) {
   };
 
   const fadeInFromTop = (delay: number) => ({
-    initial: { opacity: 0, y: -40 },
+    initial: { opacity: 0, y: -20 },
     animate: { opacity: 1, y: 0 },
     transition: {
-      duration: 0.7,
+      duration: 0.6,
       ease: easeOut,
       delay,
     },
@@ -49,6 +53,7 @@ export default function Modular({ show }: ModularSectionProps) {
             flexDirection: 'column',
             alignItems: 'center',
             marginBottom: 60,
+            padding: '0 16px',
           }}
         >
           {/* Title */}
@@ -65,127 +70,182 @@ export default function Modular({ show }: ModularSectionProps) {
             DESIGNED TO SIMPLIFY THE PHARMACY EXPERIENCE
           </div>
 
-          {/* Grid + Right Text */}
+          {/* 2x3 Grid:
+              "c1r1 c2r1"
+              "c1r2 c2r2"
+              "c1r3 c2r3"
+          */}
           <div
             style={{
-              display: 'flex',
+              display: 'grid',
+              gridTemplateColumns: '320px minmax(300px, 560px)',
+              gridTemplateRows: 'auto auto auto',
+              gridTemplateAreas: `
+                "c1r1 c2r1"
+                "c1r2 c2r2"
+                "c1r3 c2r3"
+              `,
+              columnGap: 64,
+              rowGap: 20,
               justifyContent: 'center',
-              gap: 64,
               width: '100%',
-              flexWrap: 'wrap',
             }}
           >
-            {/* Left: Rectangles */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              {/* Row 1 */}
-              <motion.div {...fadeInFromTop(0)}>
-                <div style={{ width: 310, height: 100, ...rectStyle }} />
+            {/* Column 1, Row 1: Cluster of frames */}
+            <div style={{ gridArea: 'c1r1', position: 'relative', width: 310, height: 0 }}>
+              {/* Main frame */}
+              <motion.div {...fadeInFromTop(0)} style={{ position: 'absolute', top: 0, left: 0 }}>
+                <div style={{ width: 200, height: 100, ...rectStyle }} />
               </motion.div>
 
-              {/* Row 2 */}
-              <div style={{ display: 'flex', gap: 10 }}>
-                <motion.div {...fadeInFromTop(0.4)}>
-                  <div style={{ width: 200, height: 200, ...rectStyle }} />
-                </motion.div>
-                <motion.div {...fadeInFromTop(0.8)}>
-                  <div style={{ width: 100, height: 200, ...rectStyle }} />
-                </motion.div>
-              </div>
+              {/* Right-attached smaller frame */}
+              <motion.div {...fadeInFromTop(0.3)} style={{ position: 'absolute', top: 0, left: 205 }}>
+                <div style={{ width: 90, height: 55, ...rectStyle }} />
+              </motion.div>
 
-              {/* Row 3 */}
-              <div style={{ display: 'flex', gap: 10 }}>
-                <motion.div {...fadeInFromTop(1.2)}>
-                  <div style={{ width: 100, height: 100, ...rectStyle }} />
-                </motion.div>
-                <motion.div {...fadeInFromTop(1.6)}>
-                  <div style={{ width: 200, height: 100, ...rectStyle }} />
-                </motion.div>
-              </div>
+              {/* Bottom-attached smaller frame */}
+              <motion.div {...fadeInFromTop(0.6)} style={{ position: 'absolute', top: 60, left: 205 }}>
+                <div style={{ width: 140, height: 40, ...rectStyle }} />
+              </motion.div>
+
+              {/* Tiny tag frame */}
+              <motion.div {...fadeInFromTop(0.9)} style={{ position: 'absolute', top: 0, left: 300 }}>
+                <div style={{ width: 45, height: 55, ...rectStyle }} />
+              </motion.div>
             </div>
+{/* Column 1, Row 2: Automation animation */}
+<div style={{ gridArea: 'c1r2' }}>
+  <Automation />
+</div>
 
-            {/* Right: Filler Text */}
+
+            {/* Column 1, Row 3: ICONS to the left of Interoperability */}
             <div
               style={{
-                maxWidth: 460,
-                fontSize: 30,
-                color: '#555',
-                lineHeight: 1.6,
-                flexGrow: 1,
-                fontWeight: 700,
-                fontStyle: 'italic',
+                gridArea: 'c1r3',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 30,
+                width: 310,
               }}
             >
-              <p>
-                MODULAR COMPONENTS
-              </p>
-              <div
-                style={{
-                  maxWidth: 460,
-                  fontSize: 24,
-                  color: '#555',
-                  lineHeight: 1.6,
-                  flexGrow: 1,
-                  fontWeight: 400,
-                  fontStyle: 'normal',
-                }}
-              >
-                The building blocks of FRAMEWORx.<br />
+              {/* ncpdp.png */}
+              <motion.img
+                {...fadeInFromTop(0.2)}
+                src={NcpdpImg.src}
+                alt="NCPDP"
+                style={{ height: 40, display: 'block' }}
+              />
 
-              </div>
-              <p>
-                <br />
-                AUTOMATION
-              </p>
+              {/* Database icon */}
+              <motion.div {...fadeInFromTop(0.35)} style={{ lineHeight: 0 }}>
+                <AiOutlineDatabase size={38} />
+              </motion.div>
+
+              {/* HL7_FHIR.png */}
+              <motion.img
+                {...fadeInFromTop(0.5)}
+                src={Hl7FhirImg.src}
+                alt="HL7 FHIR"
+                style={{ gap: 6, height: 40, display: 'block' }}
+              />
+            </div>
+
+            {/* Column 2, Row 1: Modular Components */}
+            <section style={{ gridArea: 'c2r1' }}>
               <div
                 style={{
-                  maxWidth: 460,
-                  fontSize: 24,
+                  fontSize: 30,
                   color: '#555',
                   lineHeight: 1.6,
-                  flexGrow: 1,
-                  fontWeight: 400,
-                  fontStyle: 'normal',
+                  fontWeight: 700,
+                  fontStyle: 'italic',
+                  marginBottom: 8,
                 }}
               >
-                Focus on healthcare by automating the boring stuff.
+                MODULAR COMPONENTS
               </div>
-              <p>
-                <br />
-                INTEROPERABILITY
-              </p>
               <div
                 style={{
-                  maxWidth: 460,
                   fontSize: 24,
                   color: '#555',
                   lineHeight: 1.6,
-                  flexGrow: 1,
                   fontWeight: 400,
-                  fontStyle: 'normal',
+                }}
+              >
+                The building blocks of FRAMEWORx.
+              </div>
+            </section>
+
+            {/* Column 2, Row 2: Automation */}
+            <section style={{ gridArea: 'c2r2' }}>
+              <div
+                style={{
+                  fontSize: 30,
+                  color: '#555',
+                  lineHeight: 1.6,
+                  fontWeight: 700,
+                  fontStyle: 'italic',
+                  marginBottom: 8,
+                  marginTop: 30,
+                }}
+              >
+                AUTOMATION
+              </div>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: '#555',
+                  lineHeight: 1.6,
+                  fontWeight: 400,
+                }}
+              >
+                An intelligent machine on the backend to convert digital messages. Focus on healthcare by automating the boring stuff.
+              </div>
+            </section>
+
+            {/* Column 2, Row 3: Interoperability */}
+            <section style={{ gridArea: 'c2r3' }}>
+              <div
+                style={{
+                  fontSize: 30,
+                  color: '#555',
+                  lineHeight: 1.6,
+                  fontWeight: 700,
+                  fontStyle: 'italic',
+                  marginBottom: 8,
+                }}
+              >
+                INTEROPERABILITY
+              </div>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: '#555',
+                  lineHeight: 1.6,
+                  fontWeight: 400,
                 }}
               >
                 Secure, private, and built with HL7 FHIR standards for extensibility.
               </div>
-            </div>
-            <div
-              style={{
-                maxWidth: 1000,
-                fontSize: 24,
-                color: '#555',
-                lineHeight: 1.6,
-                flexGrow: 1,
-                fontWeight: 600,
-                fontStyle: 'normal',
-                textAlign: 'center',
-              }}
-            >
-              FRAMEWORx transforms the pharmacy experience.
-              <br />
-              Its modular design enables each component to easily integrate into a unified system to drive efficiency at scale.
-              <br/>
-              Explore the site to learn more.
+            </section>
+          </div>
 
-            </div>
+          {/* Footer */}
+          <div
+            style={{
+              marginTop: 36,
+              maxWidth: 1000,
+              fontSize: 24,
+              color: '#555',
+              lineHeight: 1.6,
+              fontWeight: 600,
+              textAlign: 'center',
+            }}
+          >
+            FRAMEWORx transforms the pharmacy experience.
+            <br />
+            Each component integrates into a unified system to drive efficiency at scale.
           </div>
         </motion.div>
       )}
